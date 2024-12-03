@@ -20,8 +20,9 @@ public class Order implements Serializable {
     private Long id;
 
     @Column(name = "product")
-    private String product;
+    private String products;
 
+    @Column(name = "expected-date")
     @JsonFormat(pattern = "dd-mm-yyyy")
     private LocalDate expectedDate;
 
