@@ -3,14 +3,17 @@ package org.example.oauth2resourceserverproject.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_order")
 @Data
+@EqualsAndHashCode(of = "id")
 public class Order implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -19,8 +22,13 @@ public class Order implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "product")
-    private String products;
+    @ManyToMany
+    @JoinTable(
+            name = "tb_order_products",
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
+    private Set<Product> products;
 
     @Column(name = "expected-date")
     @JsonFormat(pattern = "dd-mm-yyyy")
@@ -28,7 +36,4 @@ public class Order implements Serializable {
 
     @Column(name = "buyer")
     private String buyer;
-
-    @Column(name = "seller")
-    private String seller;
 }
