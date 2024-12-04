@@ -4,11 +4,12 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 public class OrderRequestDTO {
     private Long id;
-    private String products;
+    private List<String> products;
     @JsonFormat(pattern = "dd-mm-yyyy")
     private LocalDate expectedDate;
     private String buyer;
