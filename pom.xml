@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>org.example</groupId>
-	<artifactId>oauth2-resource-server-project</artifactId>
+	<artifactId>resource-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>oauth2-resource-server-project</name>
 	<description>oauth2-resource-server-project</description>
