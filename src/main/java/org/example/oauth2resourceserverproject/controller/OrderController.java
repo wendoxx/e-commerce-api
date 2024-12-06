@@ -22,7 +22,7 @@ public class OrderController {
         return ResponseEntity.ok(orderService.findById(id));
     }
 
-    @GetMapping("/private/all-orders")
+    @GetMapping("/public/all-orders")
     public ResponseEntity<List<OrderResponseDTO>> getAllOrders() {
         return ResponseEntity.ok(orderService.findAllOrders());
     }
