@@ -9,13 +9,13 @@ import java.util.List;
 @Data
 public class OrderResponseDTO {
     private Long id;
-    private List<ProductResponseDTO> products;
+    private List<ProductResponseDTO> product;
     private LocalDate expectedDate;
     private String buyer;
 
     public OrderResponseDTO(Order order) {
         this.id = order.getId();
-        this.products = getProducts();
+        this.product = getProduct();
         this.expectedDate = getExpectedDate();
         this.buyer = getBuyer();
     }
