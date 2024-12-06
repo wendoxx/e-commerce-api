@@ -1,11 +1,16 @@
 package org.example.oauth2resourceserverproject.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_product")
 @Data
+@EqualsAndHashCode(of = "id")
 public class Product {
 
     @Id
@@ -23,4 +28,8 @@ public class Product {
 
     @Column(name = "description")
     private String description;
+
+    @JsonBackReference
+    @ManyToMany(mappedBy = "products")
+    private Set<Order> order;
 }
