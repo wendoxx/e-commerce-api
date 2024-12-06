@@ -31,6 +31,10 @@ public class ProductService {
         return productRepository.findBySoldBy(soldBy).stream().map(ProductResponseDTO::new).toList();
     }
 
+    public List<ProductResponseDTO> findAllProducts() {
+        return productRepository.findAll().stream().map(ProductResponseDTO::new).toList();
+    }
+
     public Product saveAndUpdateProduct(ProductRequestDTO productRequestDTO) {
         Product product;
         if(productRequestDTO.getId() != null && productRepository.existsById(productRequestDTO.getId())) {
