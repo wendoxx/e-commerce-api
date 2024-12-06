@@ -30,6 +30,6 @@ public class Product {
     private String description;
 
     @JsonBackReference
-    @ManyToMany(mappedBy = "products")
+    @ManyToMany(mappedBy = "product")
     private Set<Order> order;
 }
