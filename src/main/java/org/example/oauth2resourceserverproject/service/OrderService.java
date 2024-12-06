@@ -8,6 +8,7 @@ import org.example.oauth2resourceserverproject.reporitory.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,6 +22,10 @@ public class OrderService {
 
     public OrderResponseDTO findById(Long id) {
         return orderRepository.findById(id).map(OrderResponseDTO::new).orElseThrow(() -> new RuntimeException("Order not found."));
+    }
+
+    public List<OrderResponseDTO> findAllOrders() {
+        return orderRepository.findAll().stream().map(OrderResponseDTO::new).toList();
     }
 
     public Order saveAndUpdateOrder(OrderRequestDTO orderRequestDTO) {
