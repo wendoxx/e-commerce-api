@@ -15,7 +15,12 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorize -> authorize
-                        .anyRequest().permitAll()
+                        //order
+                        .requestMatchers("/api/v1/order/public/**").hasAuthority("SCOPE_USER")
+
+                        //product
+                        .requestMatchers("/api/v1/product/public/**").permitAll()
+                        .requestMatchers("/api/v1/product/private/**").hasAuthority("SCOPE_ADMIN")
                 )
                 .build();
     }
