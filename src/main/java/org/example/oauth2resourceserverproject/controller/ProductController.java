@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/product")
+@RequestMapping("/api/v1/product")
 public class ProductController {
 
     @Autowired
@@ -39,12 +39,12 @@ public class ProductController {
     }
 
     @PostMapping("/private/save-product")
-    public ResponseEntity<Product> saveProduct(ProductRequestDTO productRequestDTO) {
+    public ResponseEntity<Product> saveProduct(@RequestBody ProductRequestDTO productRequestDTO) {
         return ResponseEntity.status(201).body(productService.saveAndUpdateProduct(productRequestDTO));
     }
 
     @PutMapping("/private/update-product")
-    public ResponseEntity<Product> updateProduct(ProductRequestDTO productRequestDTO) {
+    public ResponseEntity<Product> updateProduct(@RequestBody ProductRequestDTO productRequestDTO) {
         return ResponseEntity.status(201).body(productService.saveAndUpdateProduct(productRequestDTO));
     }
 
