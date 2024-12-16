@@ -1,5 +1,6 @@
 package org.example.oauth2resourceserverproject.service;
 
+import jakarta.transaction.Transactional;
 import org.example.oauth2resourceserverproject.dto.request.OrderRequestDTO;
 import org.example.oauth2resourceserverproject.dto.response.OrderResponseDTO;
 import org.example.oauth2resourceserverproject.model.Order;
@@ -28,6 +29,7 @@ public class OrderService {
         return orderRepository.findAll().stream().map(OrderResponseDTO::new).toList();
     }
 
+    @Transactional
     public Order saveAndUpdateOrder(OrderRequestDTO orderRequestDTO) {
         Order order;
 
@@ -36,11 +38,10 @@ public class OrderService {
         } else {
             order = new Order();
         }
-        order.setId(orderRequestDTO.getId());
+
         order.setBuyer(orderRequestDTO.getBuyer());
         order.setExpectedDate(orderRequestDTO.getExpectedDate());
-        order.setProduct(productRepository.findById(orderRequestDTO.getId()).stream().collect(Collectors.toSet()));
-
+        order.setProduct(orderRequestDTO.getProduct().stream().map(product -> productRepository.findById(product).orElseThrow(() -> new RuntimeException("Product not found."))).collect(Collectors.toSet()));
         return orderRepository.save(order);
     }
 
