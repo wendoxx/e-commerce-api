@@ -24,7 +24,7 @@ public class Order implements Serializable {
     private Long id;
 
     @JsonManagedReference
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "tb_order_products",
             joinColumns = @JoinColumn(name = "order_id"),
@@ -33,7 +33,7 @@ public class Order implements Serializable {
     private Set<Product> product;
 
     @Column(name = "expected-date")
-    @JsonFormat(pattern = "dd-mm-yyyy")
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate expectedDate;
 
     @Column(name = "buyer")
