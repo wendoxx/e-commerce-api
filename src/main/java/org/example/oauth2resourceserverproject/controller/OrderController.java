@@ -17,7 +17,7 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @GetMapping("/public/get-order/{id}")
+    @GetMapping("/public/get-order-id/{id}")
     public ResponseEntity<OrderResponseDTO> getById(@PathVariable Long id) {
         return ResponseEntity.ok(orderService.findById(id));
     }
@@ -27,13 +27,13 @@ public class OrderController {
         return ResponseEntity.ok(orderService.findAllOrders());
     }
 
-    @PostMapping("/public/create-order")
-    public ResponseEntity<Order> saveOrder(OrderRequestDTO orderRequestDTO) {
+    @PostMapping("/public/save-order")
+    public ResponseEntity<Order> saveOrder(@RequestBody OrderRequestDTO orderRequestDTO) {
         return ResponseEntity.status(201).body(orderService.saveAndUpdateOrder(orderRequestDTO));
     }
 
     @PutMapping("/public/update-order")
-    public ResponseEntity<Order> updateOrder(OrderRequestDTO orderRequestDTO) {
+    public ResponseEntity<Order> updateOrder(@RequestBody OrderRequestDTO orderRequestDTO) {
         return ResponseEntity.status(201).body(orderService.saveAndUpdateOrder(orderRequestDTO));
     }
 
