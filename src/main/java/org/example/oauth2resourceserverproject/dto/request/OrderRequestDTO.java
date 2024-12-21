@@ -5,12 +5,14 @@ import lombok.Data;
 
 import java.time.LocalDate;
 import java.util.Set;
+import java.util.UUID;
 
 @Data
 public class OrderRequestDTO {
-    private Long id;
-    private Set<Long> product;
+    private UUID id;
+    private Set<UUID> products;
     @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate expectedDate;
     private String buyer;
+    private Double total;
 }
