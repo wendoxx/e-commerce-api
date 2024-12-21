@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ProductService {
@@ -15,7 +16,7 @@ public class ProductService {
     @Autowired
     ProductRepository productRepository;
 
-    public ProductResponseDTO findById(Long id) {
+    public ProductResponseDTO findById(UUID id) {
         return productRepository.findById(id)
                 .map(ProductResponseDTO::new)
                 .orElseThrow(() -> new RuntimeException("Id not found."));
@@ -52,7 +53,7 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-    public void deleteProduct(Long id) {
+    public void deleteProduct(UUID id) {
         productRepository.deleteById(id);
     }
 }
