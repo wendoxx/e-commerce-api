@@ -8,7 +8,6 @@ import org.example.oauth2resourceserverproject.model.Product;
 import java.time.LocalDate;
 import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Data
 public class OrderResponseDTO {
@@ -26,10 +25,4 @@ public class OrderResponseDTO {
         this.buyer = order.getBuyer();
         this.total = order.getTotal();
     }
-//
-//    != null
-//            ? order.getProduct().stream()
-//                .map(Long::new)
-//                .collect(Collectors.toSet())
-//            : null;
 }

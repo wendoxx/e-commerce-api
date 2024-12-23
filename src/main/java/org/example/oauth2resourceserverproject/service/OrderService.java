@@ -57,7 +57,6 @@ public class OrderService {
                         .orElseThrow(() -> new RuntimeException("Product not found.")))
                 .collect(Collectors.toSet());
 
-
         order.setTotal(calculateTotal(orderRequestDTO));
         order.setBuyer(orderRequestDTO.getBuyer());
         order.setExpectedDate(orderRequestDTO.getExpectedDate());
