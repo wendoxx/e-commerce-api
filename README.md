@@ -77,10 +77,18 @@ src/
       application.properties         # Arquivo de configuração da aplicação
 ```
 ## Modelo de dados
-- Pedido (Order): - id = UUID - products = Product - expectedDate (Data esperada) = 
-  LocalDate - buyer (comprador) = String - total = double
-- Produto (Product): - id = UUID - name = String - soldBy (vendido por) = String - 
-  price (preço) = double - description (descrição) = String
+- Pedido (Order):
+  - id = UUID
+  - products = Product
+  - expectedDate (Data esperada) = LocalDate
+  - buyer (comprador) = String
+  - total = double
+- Produto (Product):
+  - id = UUID
+  - name = String -
+  - soldBy (vendido por) = String
+  - price (preço) = double
+  - description (descrição) = String
 ## Configuração
 ### Pré-requisitos
 - Java 21+
@@ -93,7 +101,8 @@ src/
 1. **Clone este repositório**: 
 `git clone git@github.com:wendoxx/e-commerce-api.git `
 
-2. **Configure as credenciais do banco de dados**: 
-```spring.datasource.url=jdbc:postgresql://localhost:5432/<NOME_DO_BANCO>
+2. **Configure as credenciais do banco de dados**:
+```
+   spring.datasource.url=jdbc:postgresql://localhost:5432/<NOME_DO_BANCO>
    spring.datasource.username=<USUARIO> 
-   spring.datasource.password=<SENHA>```
+   spring.datasource.password=<SENHA> ```
