@@ -44,3 +44,17 @@ O projeto utiliza as seguintes tecnologias: - **Spring Boot**: -
   price (preço) = double - description (descrição) = String
 ## Configuração
 ### Pré-requisitos
+- Java 21+
+- Maven 4.0+
+- PostgreSQL
+- Spring Boot 3.4.0+
+
+### Passos para configuração
+
+1. **Clone este repositório**: 
+`git clone git@github.com:wendoxx/e-commerce-api.git `
+
+2. **Configure as credenciais do banco de dados**: 
+```spring.datasource.url=jdbc:postgresql://localhost:5432/<NOME_DO_BANCO>
+   spring.datasource.username=<USUARIO> 
+   spring.datasource.password=<SENHA>```
