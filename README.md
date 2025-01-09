@@ -85,7 +85,7 @@ src/
   - total = double
 - Produto (Product):
   - id = UUID
-  - name = String -
+  - name = String
   - soldBy (vendido por) = String
   - price (preço) = double
   - description (descrição) = String
