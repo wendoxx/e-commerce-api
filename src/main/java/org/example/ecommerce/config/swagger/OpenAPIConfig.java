@@ -1,4 +1,4 @@
-package org.example.oauth2resourceserverproject.config.swagger;
+package org.example.ecommerce.config.swagger;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;

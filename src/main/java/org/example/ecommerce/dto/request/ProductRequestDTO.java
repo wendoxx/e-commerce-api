@@ -1,4 +1,4 @@
-package org.example.oauth2resourceserverproject.dto.request;
+package org.example.ecommerce.dto.request;
 
 import lombok.Data;
 

@@ -1,9 +1,9 @@
-package org.example.oauth2resourceserverproject.dto.response;
+package org.example.ecommerce.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import org.example.oauth2resourceserverproject.model.Order;
-import org.example.oauth2resourceserverproject.model.Product;
+import org.example.ecommerce.model.Order;
+import org.example.ecommerce.model.Product;
 
 import java.time.LocalDate;
 import java.util.Set;

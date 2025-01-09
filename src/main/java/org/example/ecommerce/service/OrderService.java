@@ -1,12 +1,12 @@
-package org.example.oauth2resourceserverproject.service;
+package org.example.ecommerce.service;
 
 import jakarta.transaction.Transactional;
-import org.example.oauth2resourceserverproject.dto.request.OrderRequestDTO;
-import org.example.oauth2resourceserverproject.dto.response.OrderResponseDTO;
-import org.example.oauth2resourceserverproject.model.Order;
-import org.example.oauth2resourceserverproject.model.Product;
-import org.example.oauth2resourceserverproject.reporitory.OrderRepository;
-import org.example.oauth2resourceserverproject.reporitory.ProductRepository;
+import org.example.ecommerce.dto.request.OrderRequestDTO;
+import org.example.ecommerce.dto.response.OrderResponseDTO;
+import org.example.ecommerce.model.Order;
+import org.example.ecommerce.model.Product;
+import org.example.ecommerce.reporitory.OrderRepository;
+import org.example.ecommerce.reporitory.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

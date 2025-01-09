@@ -1,4 +1,4 @@
-package org.example.oauth2resourceserverproject.model;
+package org.example.ecommerce.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;

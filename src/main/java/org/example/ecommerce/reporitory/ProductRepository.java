@@ -1,6 +1,6 @@
-package org.example.oauth2resourceserverproject.reporitory;
+package org.example.ecommerce.reporitory;
 
-import org.example.oauth2resourceserverproject.model.Product;
+import org.example.ecommerce.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

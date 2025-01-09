@@ -1,7 +1,7 @@
-package org.example.oauth2resourceserverproject.dto.response;
+package org.example.ecommerce.dto.response;
 
 import lombok.Data;
-import org.example.oauth2resourceserverproject.model.Product;
+import org.example.ecommerce.model.Product;
 
 import java.util.UUID;
 

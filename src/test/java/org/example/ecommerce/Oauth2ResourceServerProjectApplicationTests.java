@@ -1,4 +1,4 @@
-package org.example.oauth2resourceserverproject;
+package org.example.ecommerce;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

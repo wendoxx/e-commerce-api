@@ -1,9 +1,9 @@
-package org.example.oauth2resourceserverproject.controller;
+package org.example.ecommerce.controller;
 
-import org.example.oauth2resourceserverproject.dto.request.OrderRequestDTO;
-import org.example.oauth2resourceserverproject.dto.response.OrderResponseDTO;
-import org.example.oauth2resourceserverproject.model.Order;
-import org.example.oauth2resourceserverproject.service.OrderService;
+import org.example.ecommerce.dto.request.OrderRequestDTO;
+import org.example.ecommerce.dto.response.OrderResponseDTO;
+import org.example.ecommerce.model.Order;
+import org.example.ecommerce.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
