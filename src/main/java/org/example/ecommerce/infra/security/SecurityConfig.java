@@ -33,7 +33,7 @@ public class SecurityConfig {
                         .requestMatchers("api/v1/product/private/").authenticated()
                         .requestMatchers("api/v1/product/private/save-product").hasRole("ADMIN")
                         .requestMatchers("api/v1/product/private/update-product").hasRole("ADMIN")
-                        .requestMatchers("api/v1/order/private/save-order").hasRole("ADMIN")
+                        .requestMatchers("api/v1/order/private/save-order").authenticated()
                         .requestMatchers("api/v1/order/private/update-order").hasRole("ADMIN")
                         .anyRequest().permitAll()
                 )
