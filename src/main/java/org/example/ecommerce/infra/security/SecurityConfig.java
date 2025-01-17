@@ -27,15 +27,15 @@ public class SecurityConfig {
                 .csrf((csrf -> csrf.disable()))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("api/login").permitAll()
-                        .requestMatchers("api/register").permitAll()
-                        .requestMatchers("swagger-ui/index.html/**").permitAll()
+                        .requestMatchers("api/v1/login").permitAll()
+                        .requestMatchers("api/v1/register").permitAll()
                         .requestMatchers("api/v1/order/public/**").permitAll()
                         .requestMatchers("api/v1/product/private/").authenticated()
                         .requestMatchers("api/v1/product/private/save-product").hasRole("ADMIN")
                         .requestMatchers("api/v1/product/private/update-product").hasRole("ADMIN")
                         .requestMatchers("api/v1/order/private/save-order").hasRole("ADMIN")
                         .requestMatchers("api/v1/order/private/update-order").hasRole("ADMIN")
+                        .anyRequest().permitAll()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
