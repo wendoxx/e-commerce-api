@@ -7,7 +7,7 @@ Esta é uma API para um e-commerce desenvolvido com Java e o framework Spring, p
 ## Funcionalidades
 
 - **Pedidos (Order)**:  
-  - Criar pedidos (APENAS ADMIN)
+  - Criar pedidos (DEVE ESTAR AUTENTICADO)
   - Buscar pedidos pelo ID  
   - Listar todos os pedidos  
   - Atualizar pedidos (APENAS ADMIN)
