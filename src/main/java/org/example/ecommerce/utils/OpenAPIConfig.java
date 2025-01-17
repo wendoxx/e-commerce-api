@@ -1,4 +1,4 @@
-package org.example.ecommerce.config.swagger;
+package org.example.ecommerce.utils;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
