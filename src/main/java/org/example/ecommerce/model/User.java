@@ -1,10 +1,12 @@
 package org.example.ecommerce.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import org.example.ecommerce.infra.security.UserRole;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -14,18 +16,36 @@ import java.util.UUID;
 @Entity
 @Table(name = "tb_users")
 @Data
+@NoArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class User implements UserDetails {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     public UUID id;
 
+    @Column(name = "username")
     public String username;
 
+    @Column(name = "password")
     public String password;
+
+    @Column(name = "role")
+    public UserRole role;
+
+    public User(String username, String password, UserRole role) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        if (this.role == UserRole.ADMIN) {
+            return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+        } else {
+            return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+            }
     }
 
     @Override
