@@ -4,6 +4,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.example.ecommerce.dto.request.ProductRequestDTO;
 import org.example.ecommerce.dto.response.ProductResponseDTO;
+import org.example.ecommerce.infra.config.exception.ProductListIsEmptyException;
+import org.example.ecommerce.infra.config.exception.ProductNotFoundException;
 import org.example.ecommerce.model.Product;
 import org.example.ecommerce.reporitory.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +28,7 @@ public class ProductService {
                 .map(ProductResponseDTO::new)
                 .orElseThrow(() -> {
                     LOGGER.error("Product not found.");
-                    return new RuntimeException("Product not found.");
+                    return new ProductNotFoundException("Product not found.");
                 });
     }
 
@@ -35,7 +37,7 @@ public class ProductService {
                 .map(ProductResponseDTO::new)
                 .orElseThrow(() -> {
                     LOGGER.error("Product not found.");
-                    return  new RuntimeException("Product not found.");
+                    return  new ProductNotFoundException("Product not found.");
                 });
     }
 
@@ -44,7 +46,7 @@ public class ProductService {
 
         if(productRepository.findBySoldBy(soldBy).isEmpty()) {
             LOGGER.error("The products List is empty");
-            throw new RuntimeException("The products list is empty");
+            throw new ProductListIsEmptyException("The products list is empty");
         }
 
         return productRepository.findBySoldBy(soldBy).stream().map(ProductResponseDTO::new).toList();
@@ -55,7 +57,7 @@ public class ProductService {
 
         if(productRepository.findAll().isEmpty()) {
             LOGGER.error("The products List is empty");
-            throw new RuntimeException("The products list is empty");
+            throw new ProductListIsEmptyException("The products list is empty");
         }
 
         return productRepository.findAll().stream().map(ProductResponseDTO::new).toList();
@@ -83,7 +85,7 @@ public class ProductService {
 
         if (productRepository.findById(id).isEmpty()) {
             LOGGER.error("Product not found.");
-            throw new RuntimeException("Product not found.");
+            throw new ProductNotFoundException("Product not found.");
         }
 
         productRepository.deleteById(id);

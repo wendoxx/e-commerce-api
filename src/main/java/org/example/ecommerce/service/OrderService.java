@@ -6,6 +6,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.example.ecommerce.dto.request.OrderRequestDTO;
 import org.example.ecommerce.dto.response.OrderResponseDTO;
+import org.example.ecommerce.infra.config.exception.OrderListIsEmptyException;
+import org.example.ecommerce.infra.config.exception.OrderNotFoundException;
 import org.example.ecommerce.model.Order;
 import org.example.ecommerce.model.Product;
 import org.example.ecommerce.reporitory.OrderRepository;
@@ -33,7 +35,7 @@ public class OrderService {
         LOGGER.info("Getting order...");
         return orderRepository.findById(id).map(OrderResponseDTO::new).orElseThrow(() -> {
             LOGGER.error("Order not found");
-            return new RuntimeException("Order not found.");
+            return new OrderNotFoundException("Order not found.");
         });
     }
 
@@ -42,7 +44,7 @@ public class OrderService {
 
         if(orderRepository.findAll().isEmpty()) {
             LOGGER.error("Orders are empty.");
-            throw new RuntimeException("Orders are empty!");
+            throw new OrderListIsEmptyException("Orders are empty!");
         }
 
         return orderRepository.findAll().stream().map(OrderResponseDTO::new).toList();
@@ -86,7 +88,7 @@ public class OrderService {
 
         if(orderRepository.findById(id).isEmpty()) {
             LOGGER.error("Order not found.");
-            throw new RuntimeException("Order not found");
+            throw new OrderNotFoundException("Order not found");
         }
 
         orderRepository.deleteById(id);
