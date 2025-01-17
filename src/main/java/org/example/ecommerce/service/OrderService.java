@@ -1,6 +1,9 @@
 package org.example.ecommerce.service;
 
 import jakarta.transaction.Transactional;
+import lombok.extern.log4j.Log4j;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.example.ecommerce.dto.request.OrderRequestDTO;
 import org.example.ecommerce.dto.response.OrderResponseDTO;
 import org.example.ecommerce.model.Order;
@@ -24,11 +27,24 @@ public class OrderService {
     @Autowired
     ProductRepository productRepository;
 
+    private static final Logger LOGGER = LogManager.getLogger();
+
     public OrderResponseDTO findById(UUID id) {
-        return orderRepository.findById(id).map(OrderResponseDTO::new).orElseThrow(() -> new RuntimeException("Order not found."));
+        LOGGER.info("Getting order...");
+        return orderRepository.findById(id).map(OrderResponseDTO::new).orElseThrow(() -> {
+            LOGGER.error("Order not found");
+            return new RuntimeException("Order not found.");
+        });
     }
 
     public List<OrderResponseDTO> findAllOrders() {
+        LOGGER.info("Getting all orders...");
+
+        if(orderRepository.findAll().isEmpty()) {
+            LOGGER.error("Orders are empty.");
+            throw new RuntimeException("Orders are empty!");
+        }
+
         return orderRepository.findAll().stream().map(OrderResponseDTO::new).toList();
     }
 
@@ -61,10 +77,19 @@ public class OrderService {
         order.setBuyer(orderRequestDTO.getBuyer());
         order.setExpectedDate(orderRequestDTO.getExpectedDate());
         order.setProducts(products);
+        LOGGER.info("Saving an order...");
         return orderRepository.save(order);
     }
 
     public void deleteOrder(UUID id) {
+
+        if(orderRepository.findById(id).isEmpty()) {
+            LOGGER.error("Order not found.");
+            throw new RuntimeException("Order not found");
+        }
+
+        LOGGER.info("Deleting order...");
         orderRepository.deleteById(id);
+        LOGGER.info("Order deleted successfully.");
     }
 }
