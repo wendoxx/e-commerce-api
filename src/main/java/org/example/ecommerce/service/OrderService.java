@@ -82,13 +82,13 @@ public class OrderService {
     }
 
     public void deleteOrder(UUID id) {
+        LOGGER.info("Deleting order...");
 
         if(orderRepository.findById(id).isEmpty()) {
             LOGGER.error("Order not found.");
             throw new RuntimeException("Order not found");
         }
 
-        LOGGER.info("Deleting order...");
         orderRepository.deleteById(id);
         LOGGER.info("Order deleted successfully.");
     }
