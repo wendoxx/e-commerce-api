@@ -81,7 +81,6 @@ src/
             SecurityFilter           # Filtro personalizado para validação de tokens JWT em cada requisição.
             TokenService             # Serviço responsável por criar, assinar, verificar e renovar tokens JWT.
             UserRole                 # Enum que define os papéis de usuário (e.g., ADMIN, USER) para controle de permissões.
-            
         model/
           User                       # Modelo representando um usuário
           Order                      # Modelo representando um pedido
