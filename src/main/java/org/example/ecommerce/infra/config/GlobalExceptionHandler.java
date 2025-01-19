@@ -26,9 +26,4 @@ public class GlobalExceptionHandler {
     public String handleProductListEmptyException(ProductListIsEmptyException e) {
         return e.getMessage();
     }
-
-    @ExceptionHandler(BadRequestException.class)
-    public String handleBadRequestException(BadRequestException e) {
-        return e.getMessage();
-    }
 }
