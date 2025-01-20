@@ -48,6 +48,7 @@ O projeto utiliza as seguintes tecnologias:
 
 - **Outras**:  
   - Lombok: Redução de código boilerplate.
+  - Log4j: Adicionar Logs no console
 
 ---
 
@@ -59,46 +60,51 @@ src/
     java/
       org.example.ecommerce/
         controller/
-          AuthController             # Controlador para a Login e Registro de usuários
-          OrderController            # Controlador para a entidade Order
-          ProductController          # Controlador para a entidade Product
+          AuthController                # Controlador para a Login e Registro de usuários
+          OrderController               # Controlador para a entidade Order
+          ProductController             # Controlador para a entidade Product
         dto/
           request/
-            ProductRequestDTO        # DTO para requisições relacionadas a produtos
-            OrderRequestDTO          # DTO para requisições relacionadas a pedidos
-            LoginRequestDTO          # DTO para requisições relacionadas a Logins de usuários
-            RegisterRequestDTO       # DTO para requisições relacionadas a Registros de usuários
+            ProductRequestDTO           # DTO para requisições relacionadas a produtos
+            OrderRequestDTO             # DTO para requisições relacionadas a pedidos
+            LoginRequestDTO             # DTO para requisições relacionadas a Logins de usuários
+            RegisterRequestDTO          # DTO para requisições relacionadas a Registros de usuários
           response/
-            ProductResponseDTO       # DTO para respostas relacionadas a produtos
-            OrderResponseDTO         # DTO para respostas relacionadas a pedidos
-            LoginResponseDTO         # DTO para respostas relacionadas a Logins de usuários 
-            RegisterResponseDTO      # DTO para respostas relacionadas a Registros de usuários
+            ProductResponseDTO          # DTO para respostas relacionadas a produtos
+            OrderResponseDTO            # DTO para respostas relacionadas a pedidos
+            LoginResponseDTO            # DTO para respostas relacionadas a Logins de usuários 
+            RegisterResponseDTO         # DTO para respostas relacionadas a Registros de usuários
         infra/
+          config/
+            OrderListIsEmptyException   # Exceção para caso a lista de pedidos esteja vazia
+            OrderNotFoundException      # Exceção para caso o pedido não seja encontrado
+            ProductListIsEmptyException # Exceção para caso a lista de produtos esteja vazia
+            ProductNotFoundException    # Exceção para caso o produto não seja encontrado
           security/
-            AuthService              # Serviço para lógica de autenticação
-            CustomUserDetailsService # Implementação de UserDetailsService para carregar os detalhes do usuário a partir do banco de dados.
-            SecurityConfig           # Configuração de segurança do Spring Security, definindo regras de acesso e integração com JWT.
-            SecurityFilter           # Filtro personalizado para validação de tokens JWT em cada requisição.
-            TokenService             # Serviço responsável por criar, assinar, verificar e renovar tokens JWT.
-            UserRole                 # Enum que define os papéis de usuário (e.g., ADMIN, USER) para controle de permissões.
+            AuthService                 # Serviço para lógica de autenticação
+            CustomUserDetailsService    # Implementação de UserDetailsService para carregar os detalhes do usuário a partir do banco de dados.
+            SecurityConfig              # Configuração de segurança do Spring Security, definindo regras de acesso e integração com JWT.
+            SecurityFilter              # Filtro personalizado para validação de tokens JWT em cada requisição.
+            TokenService                # Serviço responsável por criar, assinar, verificar e renovar tokens JWT.
+            UserRole                    # Enum que define os papéis de usuário (e.g., ADMIN, USER) para controle de permissões.
         model/
-          User                       # Modelo representando um usuário
-          Order                      # Modelo representando um pedido
-          Product                    # Modelo representando um produto
+          User                          # Modelo representando um usuário
+          Order                         # Modelo representando um pedido
+          Product                       # Modelo representando um produto
         repository/
-          OrderRepository            # Repositório JPA para a entidade Order
-          ProductRepository          # Repositório JPA para a entidade Product
-          UserRepository             # Repositório JPA para a entidade User
+          OrderRepository               # Repositório JPA para a entidade Order
+          ProductRepository             # Repositório JPA para a entidade Product
+          UserRepository                # Repositório JPA para a entidade User
         service/
-          OrderService               # Serviço para lógica de negócios de pedidos
-          ProductService             # Serviço para lógica de negócios de produtos
+          OrderService                  # Serviço para lógica de negócios de pedidos
+          ProductService                # Serviço para lógica de negócios de produtos
         utils/
-          OpenAPIConfig              # Configuração do Swagger
-        EcommerceApplication         # Classe principal da aplicação
+          OpenAPIConfig                 # Configuração do Swagger
+        EcommerceApplication            # Classe principal da aplicação
     resources/
-      static/                        # Diretório para arquivos estáticos (não utilizado no momento)
-      templates/                     # Diretório para templates (não utilizado no momento)
-      application.properties         # Arquivo de configuração da aplicação
+      static/                           # Diretório para arquivos estáticos (não utilizado no momento)
+      templates/                        # Diretório para templates (não utilizado no momento)
+      application.properties            # Arquivo de configuração da aplicação
 ```
 ## Modelo de dados
 - Pedido (Order):
