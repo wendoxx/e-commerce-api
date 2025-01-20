@@ -113,7 +113,7 @@ public class ProductController {
     @ApiResponse(responseCode = "404", description = "Product not found")
     @ApiResponse(responseCode = "400", description = "Bad request")
     @ApiResponse(responseCode = "500", description = "Internal server error")
-    @DeleteMapping("/private/delete-product{id}")
+    @DeleteMapping("/private/delete-product/{id}")
     public ResponseEntity<ProductResponseDTO> deleteProduct(@PathVariable UUID id) {
         productService.deleteProduct(id);
         return ResponseEntity.noContent().build();
