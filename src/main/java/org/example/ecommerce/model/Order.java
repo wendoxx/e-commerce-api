@@ -3,9 +3,7 @@ package org.example.ecommerce.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -18,6 +16,8 @@ import java.util.UUID;
 @Table(name = "tb_order")
 @Data
 @EqualsAndHashCode(of = "id")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Order implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -45,5 +45,5 @@ public class Order implements Serializable {
 
     @Column(name = "total")
     private Double total;
-    
+
 }
