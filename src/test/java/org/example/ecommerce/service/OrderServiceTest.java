@@ -71,4 +71,13 @@ public class OrderServiceTest {
             orderService.findById(orderId));
    }
 
+    @Test
+    @DisplayName("This test should return a list with all orders")
+    void shouldReturnAListWithAllOrders(){
+
+        List<OrderResponseDTO> orders = orderService.findAllOrders();
+
+        assertEquals(orders, orderService.findAllOrders());
+    }
+
 }
