@@ -67,8 +67,8 @@ public class OrderServiceTest {
     }
 
     @Test
-    @DisplayName("This test should return a order by id")
-    void shouldReturnAOrderById() {
+    @DisplayName("This test should return the correct order details when searched by ID")
+    void shouldReturnCorrectOrderDetailsById() {
 
         OrderResponseDTO result = orderService.findById(orderId);
 
