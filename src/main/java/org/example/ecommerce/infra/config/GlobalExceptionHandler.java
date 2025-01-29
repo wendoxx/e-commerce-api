@@ -26,4 +26,9 @@ public class GlobalExceptionHandler {
     public String handleProductListEmptyException(ProductListIsEmptyException e) {
         return e.getMessage();
     }
+
+    @ExceptionHandler(UsernameIsNotAvailableException.class)
+    public String handleUsernameIsNotAvailableException(UsernameIsNotAvailableException e) {
+        return e.getMessage();
+    }
 }

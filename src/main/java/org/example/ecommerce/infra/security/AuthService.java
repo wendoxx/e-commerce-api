@@ -4,6 +4,7 @@ import org.example.ecommerce.dto.request.LoginRequestDTO;
 import org.example.ecommerce.dto.request.RegisterRequestDTO;
 import org.example.ecommerce.dto.response.LoginResponseDTO;
 import org.example.ecommerce.dto.response.RegisterResponseDTO;
+import org.example.ecommerce.infra.config.exception.UsernameIsNotAvailableException;
 import org.example.ecommerce.reporitory.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -34,7 +35,7 @@ public class AuthService {
 
     public RegisterResponseDTO register (RegisterRequestDTO registerRequestDTO) {
         if (this.userRepository.findByUsername(registerRequestDTO.getUsername()) != null) {
-            throw new RuntimeException("This username isn't available.");
+            throw new UsernameIsNotAvailableException("This username isn't available.");
         }
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(registerRequestDTO.getPassword());
