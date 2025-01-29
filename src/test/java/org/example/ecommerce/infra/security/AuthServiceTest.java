@@ -13,8 +13,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -34,12 +32,6 @@ public class AuthServiceTest {
 
     @Mock
     RegisterRequestDTO registerRequestDTO;
-
-    @Mock
-    TokenService tokenService;
-
-    @Mock
-    AuthenticationManager authenticationManager;
 
     @Mock
     LoginRequestDTO loginRequestDTO;
@@ -76,5 +68,4 @@ public class AuthServiceTest {
         assertEquals("username1", registerRequestDTO.getUsername());
         assertThrows(UsernameIsNotAvailableException.class, () -> authService.register(registerRequestDTO));
     }
-
 }
