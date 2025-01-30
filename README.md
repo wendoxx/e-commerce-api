@@ -48,7 +48,7 @@ O projeto utiliza as seguintes tecnologias:
 - **Testes**:
   - `Junit5`: Framework para desenvolvimento de testes unitátios. 
   - `Mockito`: Biblioteca para criação de ambientes isolados para criar testes.
-  - 
+  
 - **Outras**:  
   - Lombok: Redução de código boilerplate.
   - Log4j: Adicionar Logs no console
