@@ -36,7 +36,7 @@ O projeto utiliza as seguintes tecnologias:
   - `spring-boot-devtools`: Ferramentas de desenvolvimento.  
 
 - **Banco de Dados**:  
-  - PostgreSQL: Banco de dados relacional.  
+  - `PostgreSQL`: Banco de dados relacional.  
 
 - **Documentação**:  
   - `springdoc-openapi-starter-webmvc-ui`: Geração automática da documentação API com Swagger.  
@@ -45,7 +45,10 @@ O projeto utiliza as seguintes tecnologias:
   - `spring-boot-starter-security`: Configuração e gerenciamento de autenticação e autorização. 
   - `java-jwt (v4.4.0)`: Biblioteca para criação, assinatura e verificação de JSON Web Tokens (JWT).
 
-
+- **Testes**:
+  - `Junit5`: Framework para desenvolvimento de testes unitátios. 
+  - `Mockito`: Biblioteca para criação de ambientes isolados para criar testes.
+  - 
 - **Outras**:  
   - Lombok: Redução de código boilerplate.
   - Log4j: Adicionar Logs no console
