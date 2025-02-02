@@ -1,5 +1,7 @@
 package org.example.ecommerce.infra.security;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.example.ecommerce.dto.request.LoginRequestDTO;
 import org.example.ecommerce.dto.request.RegisterRequestDTO;
 import org.example.ecommerce.dto.response.LoginResponseDTO;
@@ -25,16 +27,19 @@ public class AuthService {
     @Autowired
     UserRepository userRepository;
 
+    private final Logger LOGGER = LogManager.getLogger();
+
     public LoginResponseDTO login (LoginRequestDTO loginRequestDTO) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(loginRequestDTO.getUsername(), loginRequestDTO.getPassword());
         var auth = this.authenticationManager.authenticate(usernamePassword);
         var token = this.tokenService.generateToken((User) auth.getPrincipal());
-
+        LOGGER.info("Logging user...");
         return new LoginResponseDTO(token);
     }
 
     public RegisterResponseDTO register (RegisterRequestDTO registerRequestDTO) {
         if (this.userRepository.findByUsername(registerRequestDTO.getUsername()) != null) {
+            LOGGER.error("This username isn't available.");
             throw new UsernameIsNotAvailableException("This username isn't available.");
         }
 
@@ -42,7 +47,7 @@ public class AuthService {
         User user = new User(registerRequestDTO.getUsername(), encryptedPassword, registerRequestDTO.getRole());
 
         User savedUser = this.userRepository.save(user);
-
+        LOGGER.info("Registering user...");
         return new RegisterResponseDTO(savedUser.getUsername(), savedUser.getRole());
     }
 }
