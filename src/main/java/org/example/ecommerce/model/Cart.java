@@ -11,14 +11,19 @@ import java.util.UUID;
 @Data
 @Table(name = "tb_cart")
 public class Cart {
-
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    @Column
-    @ManyToMany
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "tb_cart_products",
+            joinColumns = @JoinColumn(name = "cart_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
     private Set<Product> products = new HashSet<>();
 
     @OneToOne
-    @JoinColumn(name = "owner_id")
+    @JoinColumn(name = "owner")
     private User owner;
 }
