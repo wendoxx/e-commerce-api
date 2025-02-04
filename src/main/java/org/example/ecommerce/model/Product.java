@@ -39,5 +39,5 @@ public class Product implements Serializable {
     @ToString.Exclude
     @JsonBackReference
     @ManyToMany(mappedBy = "products")
-    private Set<Order> orders = new HashSet<>();
+    private Set<Cart> orders = new HashSet<>();
 }

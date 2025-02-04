@@ -26,7 +26,8 @@ public class Order implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @ToString.Exclude
+    //TODO: MUDAR AS TABELAS, OS PEDIDOS SERÃO PEGOS DO CARRINHO APÓS O PAGAMENTO
+   /* @ToString.Exclude
     @JsonManagedReference
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -34,7 +35,7 @@ public class Order implements Serializable {
             joinColumns = @JoinColumn(name = "order_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
-    private Set<Product> products = new HashSet<>();
+    private Set<Product> products = new HashSet<>(); */
 
     @Column(name = "expected-date")
     @JsonFormat(pattern = "dd-MM-yyyy")
