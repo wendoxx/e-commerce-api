@@ -1,0 +1,30 @@
+services:
+  # Serviço do PostgreSQL
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_DB: e-commerce-api2
+    ports:
+      - "5432"                    # Expõe a porta 5432 do PostgreSQL
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Persiste os dados do PostgreSQL
+
+  # Serviço da aplicação Spring Boot
+  app:
+    image: imagemtestes:6.0       # Nome da imagem da sua aplicação Spring Boot
+    container_name: app
+    ports:
+      - "8080"                   # Expõe a porta 8080 da aplicação
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/e-commerce-api2
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 12345
+    depends_on:
+      - postgres                      # Garante que o PostgreSQL inicie antes da aplicação
+
+# Volume para persistir os dados do PostgreSQL
+volumes:
+  postgres_data:
