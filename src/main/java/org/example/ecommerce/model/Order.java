@@ -45,5 +45,4 @@ public class Order implements Serializable {
 
     @Column(name = "total")
     private Double total;
-
 }
