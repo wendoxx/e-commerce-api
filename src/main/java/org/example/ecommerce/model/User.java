@@ -22,16 +22,16 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    public UUID id;
+    private UUID id;
 
     @Column(name = "username")
-    public String username;
+    private String username;
 
     @Column(name = "password")
-    public String password;
+    private String password;
 
     @Column(name = "role")
-    public UserRole role;
+    private UserRole role;
 
     public User(String username, String password, UserRole role) {
         this.username = username;
