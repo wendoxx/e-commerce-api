@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
+import org.example.ecommerce.utils.PaymentStatus;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -36,7 +37,7 @@ public class Order implements Serializable {
     )
     private Set<Product> products = new HashSet<>();
 
-    @Column(name = "expected-date")
+    @Column(name = "expected_date")
     @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate expectedDate;
 
@@ -46,4 +47,6 @@ public class Order implements Serializable {
     @Column(name = "total")
     private Double total;
 
+    @Column(name = "payment_status")
+    private PaymentStatus paymentStatus;
 }

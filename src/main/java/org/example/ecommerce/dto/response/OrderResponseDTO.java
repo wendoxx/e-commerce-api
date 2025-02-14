@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.example.ecommerce.model.Order;
 import org.example.ecommerce.model.Product;
+import org.example.ecommerce.utils.PaymentStatus;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -17,6 +18,7 @@ public class OrderResponseDTO {
     private LocalDate expectedDate;
     private String buyer;
     private Double total;
+    private PaymentStatus paymentStatus;
 
     public OrderResponseDTO(Order order) {
         this.id = order.getId();
@@ -24,5 +26,6 @@ public class OrderResponseDTO {
         this.expectedDate = order.getExpectedDate();
         this.buyer = order.getBuyer();
         this.total = order.getTotal();
+        this.paymentStatus = order.getPaymentStatus();
     }
 }
