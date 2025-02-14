@@ -22,6 +22,7 @@ public class ProductService {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
+    // Method to find a product by ID
     public ProductResponseDTO findById(UUID id) {
         LOGGER.info("Getting product...");
         return productRepository.findById(id)
@@ -32,15 +33,19 @@ public class ProductService {
                 });
     }
 
+    // Method to find a product by name
+    // if the product is not found, it will throw an exception
     public ProductResponseDTO findByName(String name) {
         return productRepository.findByName(name)
                 .map(ProductResponseDTO::new)
                 .orElseThrow(() -> {
                     LOGGER.error("Product not found.");
-                    return  new ProductNotFoundException("Product not found.");
+                    return new ProductNotFoundException("Product not found.");
                 });
     }
 
+    // Method to find products by store
+    // if the list is empty, it will throw an exception
     public List<ProductResponseDTO> findByStore(String soldBy) {
         LOGGER.info("Getting products by store...");
 
@@ -52,6 +57,8 @@ public class ProductService {
         return productRepository.findBySoldBy(soldBy).stream().map(ProductResponseDTO::new).toList();
     }
 
+    // Method to find all products
+    // if the list is empty, it will throw an exception
     public List<ProductResponseDTO> findAllProducts() {
         LOGGER.info("Getting all products...");
 
@@ -63,6 +70,8 @@ public class ProductService {
         return productRepository.findAll().stream().map(ProductResponseDTO::new).toList();
     }
 
+    // Method to save or update a product
+    // if the product already exists, it will update it. Otherwise, it will create a new one
     public Product saveAndUpdateProduct(ProductRequestDTO productRequestDTO) {
         Product product;
         if(productRequestDTO.getId() != null && productRepository.existsById(productRequestDTO.getId())) {
@@ -80,6 +89,8 @@ public class ProductService {
         return productRepository.save(product);
     }
 
+    // Method to delete a product
+    // if the product is not found, it will throw an exception
     public void deleteProduct(UUID id) {
         LOGGER.info("Deleting product...");
 
