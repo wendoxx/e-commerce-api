@@ -14,7 +14,7 @@ services:
 
   # Serviço da aplicação Spring Boot
   app:
-    image: imagemtestes:6.0       # Nome da imagem da sua aplicação Spring Boot
+    image: ecommerce:1.0       # Nome da imagem da sua aplicação Spring Boot
     container_name: app
     ports:
       - "8080"                   # Expõe a porta 8080 da aplicação
