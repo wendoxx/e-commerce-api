@@ -43,7 +43,7 @@ public class OrderServiceTest {
     @BeforeEach
     public void setUp(){
 
-        OrderDTO = new OrderRequestDTO(orderId, Set.of(), LocalDate.of(2025, 11, 15), "John Doe", 2.0);
+        OrderDTO = new OrderRequestDTO(orderId, Set.of(), LocalDate.of(2025, 11, 15), "John Doe", 2.0, null);
 
         savedOrder = new Order();
         savedOrder.setId(orderId);
@@ -54,8 +54,8 @@ public class OrderServiceTest {
 
         Product product1 = new Product(productId, "product1", "store1", 220.00, "description1", Set.of());
         Product product2 = new Product(product2Id, "product2", "store2", 220.00, "description2", Set.of());
-        order1 = new Order(orderId, Set.of(product1), LocalDate.of(2025, 11, 15), "John Doe", 220.00);
-        order2 = new Order(order2Id, Set.of(product2), LocalDate.of(2025, 11, 11), "John Doe2", 220.00);
+        order1 = new Order(orderId, Set.of(product1), LocalDate.of(2025, 11, 15), "John Doe", 220.00, null);
+        order2 = new Order(order2Id, Set.of(product2), LocalDate.of(2025, 11, 11), "John Doe2", 220.00, null);
 
         orders = List.of(
           order1, order2
