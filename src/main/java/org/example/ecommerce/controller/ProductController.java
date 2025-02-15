@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1/product")
+@RequestMapping("/api/v2/product")
 @Tag(name = "Product Controller", description = "This controller is responsible for handling order related operations.")
 public class ProductController {
 

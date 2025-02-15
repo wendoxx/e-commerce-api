@@ -52,8 +52,9 @@ public class OrderServiceTest {
         savedOrder.setBuyer("buyer");
         savedOrder.setTotal(2.0);
 
-        Product product1 = new Product(productId, "product1", "store1", 220.00, "description1", Set.of());
-        Product product2 = new Product(product2Id, "product2", "store2", 220.00, "description2", Set.of());
+        //TODO: edit this part later
+        Product product1 = new Product(productId, "product1", "store1", 220.00, "description1", 10, null, null);
+        Product product2 = new Product(product2Id, "product2", "store2", 220.00, "description2", 10, null, null);
         order1 = new Order(orderId, Set.of(product1), LocalDate.of(2025, 11, 15), "John Doe", 220.00, null);
         order2 = new Order(order2Id, Set.of(product2), LocalDate.of(2025, 11, 11), "John Doe2", 220.00, null);
 

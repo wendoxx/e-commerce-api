@@ -29,9 +29,12 @@ public class OrderService {
     @Autowired
     ProductRepository productRepository;
 
+    @Autowired
+    private ProductService productService;
+
     private static final Logger LOGGER = LogManager.getLogger();
 
-    // Método para encontrar um pedido por ID
+    // Method to find an order by ID
     public OrderResponseDTO findById(UUID id) {
         LOGGER.info("Getting order...");
         return orderRepository.findById(id).map(OrderResponseDTO::new).orElseThrow(() -> {
@@ -40,7 +43,7 @@ public class OrderService {
         });
     }
 
-    // Método para encontrar todos os pedidos
+    // Method to find all orders
     public List<OrderResponseDTO> findAllOrders() {
         LOGGER.info("Getting all orders...");
 
@@ -52,7 +55,7 @@ public class OrderService {
         return orderRepository.findAll().stream().map(OrderResponseDTO::new).toList();
     }
 
-    // Método para calcular o total de um pedido
+    // Method to calculate the total value of the order
     private Double calculateTotal(OrderRequestDTO orderRequestDTO) {
         double total = 0;
         for (UUID productId : orderRequestDTO.getProducts()) {
@@ -61,21 +64,21 @@ public class OrderService {
         return total;
     }
 
-    // Método para salvar ou atualizar um pedido
+    // Method to save and update an order
     @Transactional
     public Order saveAndUpdateOrder(OrderRequestDTO orderRequestDTO) {
         Order order;
 
-        // Verifica se o ID do pedido existe e se o pedido já está no repositório
-        // Se o pedido existir, recupera-o do repositório
-        // Se o pedido não existir, cria um novo pedido
+        // Check if the order ID exists and if the order is already in the repository
+        // If the order exists, retrieve it from the repository
+        // If the order does not exist, create a new order
         if (orderRequestDTO.getId() != null && orderRepository.existsById(orderRequestDTO.getId())) {
             order = orderRepository.findById(orderRequestDTO.getId()).get();
         } else {
             order = new Order();
         }
 
-        // Converte os IDs dos produtos em objetos Product e os adiciona ao pedido
+        // Convert the product IDs to Product objects and add them to the order
         Set<Product> products = orderRequestDTO.getProducts()
                 .stream()
                 .map(productId -> productRepository
@@ -83,7 +86,9 @@ public class OrderService {
                         .orElseThrow(() -> new RuntimeException("Product not found.")))
                 .collect(Collectors.toSet());
 
-        // Define o status de pagamento do pedido com base no valor do DTO
+        productService.updateProductStock(products);
+
+        // Set the payment status of the order based on the value from the DTO
         if (orderRequestDTO.getPaymentStatus().isEmpty()) {
             order.setPaymentStatus(PaymentStatus.PENDING);
         } else if (orderRequestDTO.getPaymentStatus().equals("PAID")) {
@@ -96,7 +101,7 @@ public class OrderService {
             order.setPaymentStatus(PaymentStatus.CANCELED);
         }
 
-        // Define os valores do pedido com base no DTO
+        // Set the order values
         order.setTotal(calculateTotal(orderRequestDTO));
         order.setBuyer(orderRequestDTO.getBuyer());
         order.setExpectedDate(orderRequestDTO.getExpectedDate());
@@ -105,17 +110,17 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
-    // Método para deletar um pedido
+    // Method to delete an order
     public void deleteOrder(UUID id) {
         LOGGER.info("Deleting order...");
 
-        // Verifica se o pedido existe no repositório
+        // Verify if the order exists
         if (orderRepository.findById(id).isEmpty()) {
             LOGGER.error("Order not found.");
             throw new OrderNotFoundException("Order not found");
         }
 
-        // Deleta o pedido do repositório
+        // Delet the order in the repository
         orderRepository.deleteById(id);
         LOGGER.info("Order deleted successfully.");
     }

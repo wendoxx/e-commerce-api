@@ -52,6 +52,8 @@ O projeto utiliza as seguintes tecnologias:
 - **Outras**:  
   - Lombok: Redução de código boilerplate.
   - Log4j: Adicionar Logs no console
+  - Docker: Containerização da aplicação
+  - Docker Compose: Orquestração de containers
 
 ---
 
@@ -79,10 +81,15 @@ src/
             RegisterResponseDTO         # DTO para respostas relacionadas a Registros de usuários
         infra/
           config/
-            OrderListIsEmptyException   # Exceção para caso a lista de pedidos esteja vazia
-            OrderNotFoundException      # Exceção para caso o pedido não seja encontrado
-            ProductListIsEmptyException # Exceção para caso a lista de produtos esteja vazia
-            ProductNotFoundException    # Exceção para caso o produto não seja encontrado
+            swagger/
+             OpenAPIConfig                # Configuração do Swagger  
+            exception/
+              OrderListIsEmptyException   # Exceção para caso a lista de pedidos esteja vazia
+              OrderNotFoundException      # Exceção para caso o pedido não seja encontrado
+              ProductListIsEmptyException # Exceção para caso a lista de produtos esteja vazia
+              ProductNotFoundException    # Exceção para caso o produto não seja encontrado
+              UsernameIsNotAvailableException # Exceção para caso o nome de usuário já esteja em uso
+            GlobalExceptionHandler        # Manipulador de exceções global
           security/
             AuthService                 # Serviço para lógica de autenticação
             CustomUserDetailsService    # Implementação de UserDetailsService para carregar os detalhes do usuário a partir do banco de dados.
@@ -102,7 +109,8 @@ src/
           OrderService                  # Serviço para lógica de negócios de pedidos
           ProductService                # Serviço para lógica de negócios de produtos
         utils/
-          OpenAPIConfig                 # Configuração do Swagger
+          AvailabilityStatus            # Enum que define os status de disponibilidade de um produto
+          PaymentStatus                 # Enum que define os status de pagamento de um pedido
         EcommerceApplication            # Classe principal da aplicação
     resources/
       static/                           # Diretório para arquivos estáticos (não utilizado no momento)
@@ -116,12 +124,15 @@ src/
   - expectedDate (Data esperada) = LocalDate
   - buyer (comprador) = String
   - total = double
+  - paymentStatus (status de pagamento) = PaymentStatus
 - Produto (Product):
   - id = UUID
   - name = String
   - soldBy (vendido por) = String
   - price (preço) = double
   - description (descrição) = String
+  - stock (estoque) = int
+  - availabilityStatus (status de disponibilidade) = AvailabilityStatus
 ## Configuração
 ### Pré-requisitos
 - Java 21+
@@ -201,6 +212,8 @@ Para criar um pedido você precisará apenas estar autenticado. Com isso, você 
   "products": [
     "123e4567-e89b-12d3-a456-426614174000"
   ],
-  "expectedDate": "2025-01-17"
+  "expectedDate": "2025-01-17",
+  "buyer": "João da Silva",
+  "paymentStatus": ""
 }
 ```

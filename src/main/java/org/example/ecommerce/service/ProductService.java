@@ -8,10 +8,12 @@ import org.example.ecommerce.infra.config.exception.ProductListIsEmptyException;
 import org.example.ecommerce.infra.config.exception.ProductNotFoundException;
 import org.example.ecommerce.model.Product;
 import org.example.ecommerce.reporitory.ProductRepository;
+import org.example.ecommerce.utils.AvailabilityStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -22,6 +24,7 @@ public class ProductService {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
+    // Method to find a product by ID
     public ProductResponseDTO findById(UUID id) {
         LOGGER.info("Getting product...");
         return productRepository.findById(id)
@@ -32,15 +35,19 @@ public class ProductService {
                 });
     }
 
+    // Method to find a product by name
+    // if the product is not found, it will throw an exception
     public ProductResponseDTO findByName(String name) {
         return productRepository.findByName(name)
                 .map(ProductResponseDTO::new)
                 .orElseThrow(() -> {
                     LOGGER.error("Product not found.");
-                    return  new ProductNotFoundException("Product not found.");
+                    return new ProductNotFoundException("Product not found.");
                 });
     }
 
+    // Method to find products by store
+    // if the list is empty, it will throw an exception
     public List<ProductResponseDTO> findByStore(String soldBy) {
         LOGGER.info("Getting products by store...");
 
@@ -52,6 +59,8 @@ public class ProductService {
         return productRepository.findBySoldBy(soldBy).stream().map(ProductResponseDTO::new).toList();
     }
 
+    // Method to find all products
+    // if the list is empty, it will throw an exception
     public List<ProductResponseDTO> findAllProducts() {
         LOGGER.info("Getting all products...");
 
@@ -63,6 +72,8 @@ public class ProductService {
         return productRepository.findAll().stream().map(ProductResponseDTO::new).toList();
     }
 
+    // Method to save or update a product
+    // if the product already exists, it will update it. Otherwise, it will create a new one
     public Product saveAndUpdateProduct(ProductRequestDTO productRequestDTO) {
         Product product;
         if(productRequestDTO.getId() != null && productRepository.existsById(productRequestDTO.getId())) {
@@ -70,16 +81,42 @@ public class ProductService {
         } else {
             product = new Product();
         }
-
-        product.setId(productRequestDTO.getId());
+        
         product.setName(productRequestDTO.getName());
         product.setPrice(productRequestDTO.getPrice());
         product.setSoldBy(productRequestDTO.getSoldBy());
         product.setDescription(productRequestDTO.getDescription());
+        product.setStock(productRequestDTO.getStock());
 
         return productRepository.save(product);
     }
 
+    // This method updates the availability status of a product
+    private void updateAvailabilityStatus(Product product) {
+        if (product.getStock() == 0) {
+            product.setAvailabilityStatus(AvailabilityStatus.OUT_OF_STOCK);
+        } else {
+            product.setAvailabilityStatus(AvailabilityStatus.IN_STOCK);
+        }
+    }
+
+    // This method updates the stock of the products
+    // this method calls the updateAvailabilityStatus method to update the availability status of the product
+    public void updateProductStock(Set<Product> products) {
+        for (Product product : products) {
+            if (product.getStock() > 0) {
+                product.setStock(product.getStock() - 1);
+                updateAvailabilityStatus(product);
+                productRepository.save(product);
+            } else {
+                LOGGER.error("Product out of stock.");
+                throw new ProductNotFoundException("Product out of stock.");
+            }
+        }
+    }
+
+    // Method to delete a product
+    // if the product is not found, it will throw an exception
     public void deleteProduct(UUID id) {
         LOGGER.info("Deleting product...");
 
