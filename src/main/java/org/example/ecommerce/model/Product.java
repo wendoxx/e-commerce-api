@@ -3,6 +3,7 @@ package org.example.ecommerce.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
+import org.example.ecommerce.utils.AvailabilityStatus;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -35,6 +36,12 @@ public class Product implements Serializable {
 
     @Column(name = "description")
     private String description;
+
+    @Column(name = "stock")
+    private int stock;
+
+    @Column(name = "availability_status")
+    private AvailabilityStatus availabilityStatus;
 
     @ToString.Exclude
     @JsonBackReference

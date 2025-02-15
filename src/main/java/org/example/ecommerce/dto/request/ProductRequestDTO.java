@@ -13,4 +13,5 @@ public class ProductRequestDTO {
     private String soldBy;
     private double price;
     private String description;
+    private int stock;
 }

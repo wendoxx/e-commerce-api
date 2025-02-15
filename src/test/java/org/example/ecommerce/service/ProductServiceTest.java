@@ -5,6 +5,7 @@ import org.example.ecommerce.dto.response.ProductResponseDTO;
 import org.example.ecommerce.infra.config.exception.ProductNotFoundException;
 import org.example.ecommerce.model.Product;
 import org.example.ecommerce.reporitory.ProductRepository;
+import org.example.ecommerce.utils.AvailabilityStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -44,10 +45,10 @@ public class ProductServiceTest {
     @BeforeEach
     public void setUp() {
 
-        productRequestDTO = new ProductRequestDTO(productId, "product1", "store1", 20.00, "description1");
+        productRequestDTO = new ProductRequestDTO(productId, "product1", "store1", 20.00, "description1", 10);
 
-        product = new Product(productId, "product1", "store1", 20.00, "description1", Set.of());
-        product2 = new Product(product2Id, "product2", "store2", 20.00, "description2", Set.of());
+        product = new Product(productId, "product1", "store1", 20.00, "description1",91, AvailabilityStatus.IN_STOCK, Set.of());
+        product2 = new Product(product2Id, "product2", "store2", 20.00, "description2", 10, AvailabilityStatus.IN_STOCK, Set.of());
 
         products = List.of(
                 product, product2

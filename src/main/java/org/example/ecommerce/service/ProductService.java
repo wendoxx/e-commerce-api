@@ -8,10 +8,12 @@ import org.example.ecommerce.infra.config.exception.ProductListIsEmptyException;
 import org.example.ecommerce.infra.config.exception.ProductNotFoundException;
 import org.example.ecommerce.model.Product;
 import org.example.ecommerce.reporitory.ProductRepository;
+import org.example.ecommerce.utils.AvailabilityStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -79,14 +81,38 @@ public class ProductService {
         } else {
             product = new Product();
         }
-
-        product.setId(productRequestDTO.getId());
+        
         product.setName(productRequestDTO.getName());
         product.setPrice(productRequestDTO.getPrice());
         product.setSoldBy(productRequestDTO.getSoldBy());
         product.setDescription(productRequestDTO.getDescription());
+        product.setStock(productRequestDTO.getStock());
 
         return productRepository.save(product);
+    }
+
+    // This method updates the availability status of a product
+    private void updateAvailabilityStatus(Product product) {
+        if (product.getStock() == 0) {
+            product.setAvailabilityStatus(AvailabilityStatus.OUT_OF_STOCK);
+        } else {
+            product.setAvailabilityStatus(AvailabilityStatus.IN_STOCK);
+        }
+    }
+
+    // This method updates the stock of the products
+    // this method calls the updateAvailabilityStatus method to update the availability status of the product
+    public void updateProductStock(Set<Product> products) {
+        for (Product product : products) {
+            if (product.getStock() > 0) {
+                product.setStock(product.getStock() - 1);
+                updateAvailabilityStatus(product);
+                productRepository.save(product);
+            } else {
+                LOGGER.error("Product out of stock.");
+                throw new ProductNotFoundException("Product out of stock.");
+            }
+        }
     }
 
     // Method to delete a product
