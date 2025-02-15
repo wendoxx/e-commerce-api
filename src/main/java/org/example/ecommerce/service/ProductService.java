@@ -87,6 +87,7 @@ public class ProductService {
         product.setSoldBy(productRequestDTO.getSoldBy());
         product.setDescription(productRequestDTO.getDescription());
         product.setStock(productRequestDTO.getStock());
+        updateAvailabilityStatus(product);
 
         return productRepository.save(product);
     }
@@ -108,9 +109,6 @@ public class ProductService {
                 product.setStock(product.getStock() - 1);
                 updateAvailabilityStatus(product);
                 productRepository.save(product);
-            } else {
-                LOGGER.error("Product out of stock.");
-                throw new ProductNotFoundException("Product out of stock.");
             }
         }
     }
